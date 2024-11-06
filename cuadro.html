@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -5,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de tareas</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .task-list li:hover {
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -15,13 +21,44 @@
                 <li>Tarea 2</li>
                 <li>Tarea 3</li>
             </ul>
-            <input type="text" placeholder="Escribe aquí..." class="text-input">
-            <button class="btn">Enviar</button>
+            <input type="text" placeholder="Escribe aquí..." class="input-tarea">
+            <button id="boton-agregar" class="btn">Agregar</button>
         </div>
     </div>
 
     <footer>
         <p>INFORMACIÓN DEL AUTOR</p>
     </footer>
+
+    <script>
+        const botonAgregar = document.getElementById("boton-agregar");
+        const inputTarea = document.querySelector(".input-tarea");
+        const listaTareas = document.querySelector(".task-list");
+
+        // Función para cambiar el color al pasar el mouse
+        function agregarEventosCambioColor(tarea) {
+            tarea.addEventListener("mouseover", () => {
+                tarea.style.color = "red"; // Cambia el color al pasar el mouse
+            });
+            tarea.addEventListener("mouseout", () => {
+                tarea.style.color = ""; // Vuelve al color original
+            });
+        }
+
+        document.querySelectorAll(".task-list li").forEach(tarea => {
+            agregarEventosCambioColor(tarea);
+        });
+
+        botonAgregar.addEventListener("click", () => {
+            const tarea = inputTarea.value;
+            const nuevaTarea = document.createElement("li");
+            nuevaTarea.textContent = tarea;
+            listaTareas.appendChild(nuevaTarea);
+            inputTarea.value = "";
+
+            
+            agregarEventosCambioColor(nuevaTarea);
+        });
+    </script>
 </body>
 </html>
